@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ro-Sham-Bo!</title>
+    </head>
+    <body>
+        <script>
+            function getComputerChoice() 
+            {
+                const choices = ["ROCK", "PAPER", "SCISSORS"];
+                let computerChoice = Math.floor(Math.random() * 3);
+                return choices[computerChoice];
+            }
+            function playRound(playerSelection, computerSelection) 
+            {
+                // local variable to store the string that declares the winner
+                let output = "";
+                if (playerSelection === "ROCK") 
+                {
+                    switch(computerSelection)
+                    {
+                        case "ROCK":
+                            output = "It's a tie!";
+                            break;
+                        case "PAPER":
+                            output = "You lose!";
+                            break;
+                        case "SCISSORS":
+                            output = "You win!";
+                    }
+                }
+                else if (playerSelection === "PAPER")
+                {
+                    switch(computerSelection)
+                    {
+                        case "ROCK":
+                            output = "You win!";
+                            break;
+                        case "PAPER":
+                            output = "It's a tie!";
+                            break;
+                        case "SCISSORS":
+                            output = "You lose!";
+                    }
+                }
+                else 
+                {
+                    switch(computerSelection)
+                    {
+                        case "ROCK":
+                            output = "You lose!";
+                            break;
+                        case "PAPER":
+                            output = "You win!";
+                            break;
+                        case "SCISSORS":
+                            output = "It's a tie!";
+                    }
+                } 
+                return output;
+            }
+
+            function game() {
+                let currentGame;
+                let userWin = 0;
+                let computerWin = 0;
+                let ties = 0;
+                for (currentGame = 0; userWin != 3 && computerWin != 3; currentGame++)
+                {
+                    let round = "";
+                    let computerChoice = getComputerChoice();
+                    let userChoice = prompt("Pick Rock, Paper, or Scissors.");
+                    userChoice = userChoice.toUpperCase();
+                    let decsion = playRound(userChoice, computerChoice);
+                    switch (decsion) 
+                    {
+                        case "You win!":
+                            userWin++;
+                            round = "The win! You chose " + userChoice + " the bot chose " + computerChoice;
+                            break;
+                        case "You lose!":
+                            computerWin++;
+                            round = "The lose! You chose " + userChoice + " the bot chose " + computerChoice;
+                            break;
+                        case "It's a tie!":
+                            ties++;
+                            round = "It's a tie! You chose " + userChoice + " the bot chose " + computerChoice;
+                            break;
+                    }   
+                    console.log(round);
+                    console.log("The current score is: " + userWin + " to " +computerWin);
+                }
+                if (userWin == 3) 
+                {
+                    return "You win the best of 5!";
+                }
+                else return "You lose the best of 5!";
+            }
+            console.log(game());
+        </script>
+    </body>
+</html>
