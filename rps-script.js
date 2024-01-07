@@ -1,106 +1,61 @@
-function getComputerChoice() 
-{
-    const choices = ["ROCK", "PAPER", "SCISSORS"];
-    let computerChoice = Math.floor(Math.random() * 3);
-    return choices[computerChoice];
-}
-
-let botWin = 0; 
-let userWin = 0;
-let tieCount = 0;
-function playRound(event) 
-{
-    // local variable to store the string that declares the winner
-    let output = "";
-    let btnClicked = event.target.textContent; 
-    let computerSelection = getComputerChoice();
-    let user = document.querySelector('.user');
-    let bot = document.querySelector('.bot');
-    let tie = document.querySelector('.tie');
-    let result = document.querySelector('.result');
-
-    if (btnClicked === "ROCK") 
-    {
-        switch(computerSelection)
-        {
-            case "ROCK":
-                output = "It's a tie!";
-                tieCount++;
-                tie.textContent = "Tie: " + tieCount;
-                result.textContent = "Result: You chose rock, and the bot chose rock! It's a tie.";
-                break;
-            case "PAPER":
-                output = "You lose!";
-                botWin++;
-                bot.textContent = "Games bot won: " + botWin;
-                result.textContent = "Result: You chose rock, and the bot chose paper! You lose!";
-                break;
-            case "SCISSORS":
-                output = "You win!";
-                userWin++;
-                user.textContent = "Games you've won: " + userWin;
-                result.textContent = "Result: You chose rock, and the bot chose scissors! You win!";
-                break;
-        }
-    }
-    else if (btnClicked === "PAPER")
-    {
-        switch(computerSelection)
-        {
-            case "ROCK":
-                output = "You win!";
-                userWin++;
-                user.textContent = "Games you've won: " + userWin;
-                result.textContent = "Result: You chose paper, and the bot chose rock! You win!";
-                break;
-            case "PAPER":
-                output = "It's a tie!";
-                tieCount++;
-                tie.textContent = "Tie: " + tieCount;
-                result.textContent = "Result: You chose paper, and the bot chose paper! It's a tie!";
-                break;
-            case "SCISSORS":
-                output = "You lose!";
-                botWin++;
-                bot.textContent = "Games bot won: " + botWin;
-                result.textContent = "Result: You chose paper, and the bot chose scissors! You lose!";
-                break;
-        }
-    }
-    else 
-    {
-        switch(computerSelection)
-        {
-            case "ROCK":
-                output = "You lose!";
-                botWin++;
-                bot.textContent = "Games bot won: " + botWin;
-                result.textContent = "Result: You chose scissors, and the bot chose rock! You lose!";
-                break;
-            case "PAPER":
-                output = "You win!";
-                userWin++;
-                user.textContent = "Games you've won: " + userWin;
-                result.textContent = "Result: You chose scissors, and the bot chose paper! You win!";
-                break;
-            case "SCISSORS":
-                output = "It's a tie!";
-                tieCount++;
-                tie.textContent = "Tie: " + tieCount;
-                result.textContent = "Result: You chose scissors, and the bot chose scissors! It's a tie!";
-                break;
-        }
-    } 
-    return console.log(output);
-}
-
+// getting a reference to the node
 let btnRock = document.querySelector('#rock');
 let btnPaper = document.querySelector('#paper');
 let btnScissors = document.querySelector('#scissors');
 
+// adding event listener. waiting for click, if clicked will run the function playround.
 btnRock.addEventListener('click', playRound);
 btnPaper.addEventListener('click', playRound);
 btnScissors.addEventListener('click', playRound);
+
+
+function getComputerChoice() 
+{
+    const choices = ["✊", "🖐️", "✌️"];
+    let computerChoice = Math.floor(Math.random() * 3);
+    return choices[computerChoice];
+}
+
+// global variables to keep track of score 
+let botWinCount = 0; 
+let userWinCount = 0;
+
+function playRound(event) 
+{
+    let computerSelection = getComputerChoice();
+
+    // getting the user input when the click on a button
+    let btnClicked = event.target.textContent; 
+
+    // getting the reference to the node in the DOM
+    let user = document.querySelector('.user');
+    let bot = document.querySelector('.bot');
+    let prompt = document.querySelector('.prompt');
+    let result = document.querySelector('.result');
+
+    if (btnClicked === computerSelection) 
+    {
+        prompt = `You picked ${btnClicked}, and the computer picked ${computerSelection}.`;
+        result.textContent = "IT'S A TIE!";
+    }
+    else if (btnClicked === "✊" && computerSelection === "✌️" || 
+            btnClicked === "🖐️" && computerSelection === "✊" ||
+            btnClicked === "✌️" && computerSelection === "🖐️")
+    {
+        userWinCount++;
+        user.textContent = "Player score: " + userWinCount;
+        prompt.textContent = `You picked ${btnClicked}, and the computer picked ${computerSelection}.`;
+        result.textContent = "YOU WIN!";
+    }
+    else 
+    {
+        botWinCount++;
+        bot.textContent = "Computer score: " + botWinCount;
+        prompt.textContent = `You picked ${btnClicked}, and the computer picked ${computerSelection}.`;
+        result.textContent = "YOU LOSE!";
+    }
+}
+
 
 
 
