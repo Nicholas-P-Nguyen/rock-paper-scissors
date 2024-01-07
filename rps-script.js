@@ -35,7 +35,7 @@ function playRound(event)
 
     if (btnClicked === computerSelection) 
     {
-        prompt = `You picked ${btnClicked}, and the computer picked ${computerSelection}.`;
+        prompt.textContent = `You picked ${btnClicked}, and the computer picked ${computerSelection}.`;
         result.textContent = "IT'S A TIE!";
     }
     else if (btnClicked === "✊" && computerSelection === "✌️" || 
